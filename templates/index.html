@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <h1 class="display-4">To-Do List</h1>
+                <span class="toggle-theme" onclick="toggleTheme()">
+                    <i class="fas fa-moon"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="date-display">
+                <span>Tuesday</span>
+                <span>July 02, 2024</span>
+            </div>
+        </div>
+    </div>
+
+    <form action="/" method="POST" class="mb-4">
+        <div class="row">
+            <div class="col">
+                <input type="text" class="form-control" name="title" placeholder="New task">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" name="description" placeholder="Description">
+            </div>
+            <div class="col">
+                <select class="form-control" name="category">
+                    <option value="Work">Work</option>
+                    <option value="Personal">Personal</option>
+                    <option value="Shopping">Shopping</option>
+                </select>
+            </div>
+            <div class="col">
+                <select class="form-control" name="priority">
+                    <option value="High">High</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Low">Low</option>
+                </select>
+            </div>
+            <div class="col">
+                <input type="text" class="form-control datepicker" name="due_date" placeholder="dd-mm-yyyy">
+            </div>
+            <div class="col">
+                <button type="submit" class="btn btn-dark">Add Task</button>
+            </div>
+        </div>
+    </form>
+
+    <form action="/" method="GET" class="mb-4">
+        <div class="input-group">
+            <input type="text" class="form-control" name="query" placeholder="Search tasks">
+        </div>
+    </form>
+
+    <ul class="nav nav-pills mb-4">
+        <li class="nav-item">
+            <a class="nav-link active" href="/">All</a>
+        </li>
+        {% for category in categories %}
+        <li class="nav-item">
+            <a class="nav-link" href="/category/{{ category[0] }}">{{ category[0] }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <div class="row">
+        {% for task in tasks %}
+        <div class="col-md-4 mb-4">
+            <div class="card {% if task.priority == 'High' %}border-danger{% elif task.priority == 'Medium' %}border-warning{% else %}border-success{% endif %}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ task.title }}</h5>
+                    <p class="card-text">{{ task.description }}</p>
+                    <p class="card-text"><small class="text-muted">{{ task.category }}</small></p>
+                    <p class="card-text"><small class="text-muted">Due: {{ task.due_date.date() if task.due_date else 'No due date' }}</small></p>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="task-{{ task.id }}" {% if task.completed %}checked{% endif %} onclick="updateTaskStatus({{ task.id }})">
+                        <label class="form-check-label" for="task-{{ task.id }}">Completed</label>
+                    </div>
+                    <a href="/delete/{{ task.id }}" class="btn btn-danger btn-sm mt-2">Delete</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="social-icons">
+        <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+        <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+        <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="https://reddit.com" target="_blank"><i class="fab fa-reddit"></i></a>
+    </div>
+</div>
+
+<script>
+    function updateTaskStatus(taskId) {
+        fetch(`/update/${taskId}`, { method: 'POST' }).then(() => {
+            location.reload();
+        });
+    }
+
+    function toggleTheme() {
+        document.body.classList.toggle('dark-mode');
+        document.querySelector('.toggle-theme i').classList.toggle('fa-moon');
+        document.querySelector('.toggle-theme i').classList.toggle('fa-sun');
+    }
+</script>
+{% endblock %}
