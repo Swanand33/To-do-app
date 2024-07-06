@@ -69,8 +69,8 @@ def filter(category):
     categories = Task.query.with_entities(Task.category).distinct()
     return render_template('index.html', tasks=tasks, categories=categories, today=datetime.utcnow().date())
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=8000)
     
 from datetime import datetime
 
