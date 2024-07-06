@@ -16,8 +16,8 @@
     <div class="row mb-4">
         <div class="col-12">
             <div class="date-display">
-                <span>Tuesday</span>
-                <span>July 02, 2024</span>
+                 <span>Tuesday</span>
+                 <span>July 02, 2024</span>
             </div>
         </div>
     </div>
@@ -55,7 +55,7 @@
 
     <form action="/" method="GET" class="mb-4">
         <div class="input-group">
-            <input type="text" class="form-control" name="query" placeholder="Search tasks">
+            <input type="text" class="form-control search-bar" name="query" placeholder="Search tasks">
         </div>
     </form>
 
@@ -111,5 +111,13 @@
         document.querySelector('.toggle-theme i').classList.toggle('fa-moon');
         document.querySelector('.toggle-theme i').classList.toggle('fa-sun');
     }
+
+    $(document).ready(function() {
+        // Initialize date picker
+        $('.datepicker').datepicker({
+            format: 'dd-mm-yyyy',
+            autoclose: true
+        });
+    });
 </script>
 {% endblock %}

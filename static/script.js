@@ -1,19 +1,26 @@
-// Assuming jQuery is available
-$(function () {
-    $('.datepicker').datepicker({
-        format: 'dd-mm-yyyy',
-        autoclose: true,
-        todayHighlight: true
-    });
-
-    $('input[name="query"]').on('keypress', function (e) {
-        if (e.which === 13) {
-            $(this).closest('form').submit();
+function toggleTheme() {
+    const body = document.body;
+    body.classList.toggle('dark-mode');
+    const theme = body.classList.contains('dark-mode') ? 'dark' : 'light';
+    document.cookie = 'theme=' + theme + ';path=/';
+    
+    // Apply dark-mode class to navbar and other elements
+    document.querySelectorAll('.navbar, .card, .navbar-brand, .date-display, .card-text').forEach(el => {
+        if (theme === 'dark') {
+            el.classList.add('dark-mode');
+        } else {
+            el.classList.remove('dark-mode');
         }
     });
+}
 
-    $('.toggle-theme').on('click', function() {
-        $('body').toggleClass('dark-mode');
-        $(this).toggleClass('dark-mode');
-    });
+document.addEventListener('DOMContentLoaded', () => {
+    const theme = document.cookie.split('; ').find(row => row.startsWith('theme=')).split('=')[1];
+    if (theme === 'dark') {
+        document.body.classList.add('dark-mode');
+        // Apply dark-mode class to navbar and other elements
+        document.querySelectorAll('.navbar, .card, .navbar-brand, .date-display, .card-text').forEach(el => {
+            el.classList.add('dark-mode');
+        });
+    }
 });
