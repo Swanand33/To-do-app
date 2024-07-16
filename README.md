@@ -4,6 +4,10 @@ Overview
 
 This To-Do List application allows users to manage their tasks efficiently. Users can add, search, filter, and categorize tasks, as well as toggle between light and dark themes. The application also includes a date picker for easy date selection and social media links for quick access.
 
+![Screenshot 2024-07-16 112749](https://github.com/user-attachments/assets/aa11cf53-8930-4aed-88a3-6ef0f0f561a3)
+![Screenshot 2024-07-16 112802](https://github.com/user-attachments/assets/c144a357-7aa0-4e85-b1ce-9897de69f4e9)
+
+
 ## Features
 
 - **Add New Tasks:** Users can add new tasks with a title, description, category, priority, and due date.
@@ -22,7 +26,6 @@ This To-Do List application allows users to manage their tasks efficiently. User
 - **jQuery:** JavaScript library for DOM manipulation.
 - **Bootstrap Datepicker:** Date picker plugin for Bootstrap.
 
-![Screenshot 2024-07-02 151211](https://github.com/Swanand33/To-do-app/assets/142079544/14460e37-595f-4370-b499-70415314c471)
 
 
 ## License
